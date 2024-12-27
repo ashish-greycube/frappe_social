@@ -1,5 +1,6 @@
 import Home from './Home.vue';
-
+import { onMounted, onUnmounted, reactive, ref, watch } from 'vue';
+import { createApp,h } from 'vue';
 frappe.provide('frappe.social');
 
 frappe.social.Home = class SocialHome {
@@ -11,13 +12,17 @@ frappe.social.Home = class SocialHome {
 	}
 	make_body() {
 		this.$social_container = this.$parent.find('.layout-main');
-		new Vue({
-			el: this.$social_container[0],
-			render: h => h(Home),
-			data: {
-				'page': this.page
-			}
+		const app = createApp({
+			// el: this.$social_container[0],			
+			data() {
+				return {
+					page: this.page
+				};
+			},
+			render: () => h(Home)
 		});
+		// SetVueGlobals(app);
+		app.mount(this.$social_container[0])		
 	}
 	setup_header() {
 		this.page.set_title(__('Social'));

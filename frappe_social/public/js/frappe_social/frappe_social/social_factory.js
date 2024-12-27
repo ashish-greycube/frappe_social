@@ -1,15 +1,16 @@
 frappe.views.SocialFactory = class SocialFactory extends frappe.views.Factory {
 	show() {
-		if (frappe.pages.social) {
-			frappe.container.change_to('social');
-		} else {
-			this.make('social');
-		}
+		this.make('social');
+		// if (frappe.pages.social) {
+		// 	frappe.container.change_to('social');
+		// } else {
+		// 	this.make('social');
+		// }
 	}
 
 	make(page_name) {
 		const assets = [
-			'/assets/js/social.min.js'
+			'social.bundle.js'
 		];
 
 		frappe.require(assets, () => {
